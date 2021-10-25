@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama2Gym</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"/>
+    <script src="https://kit.fontawesome.com/105eae53a8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="gimnasio.css"></head>
+<body>
+    <header class="container-fluid text-center"><br><h1> Mama2Gym</h1></header>
+    <section id="stock"><br><div class="row"><div class="col-6 offset-2">
+        <div class="formulario"><label>Agregar</label>
+            <div class="form-group"><label>Nombre del producto</label>
+                <input type="text" class="form-control" v-model="newProductName"><br>
+                <label>Cantidad</label><input type="number" class="form-control" v-model="newProductQuantity"><br>
+                <label>Precio</label>
+                <input type="number" class="form-control" v-model="newProductPrice" @keyup.enter="add()"><br></div>
+                <button class="btn btn-primary" @click="add()">Agregar</button></div></div></div>
+        <div class="col-6 offset-2"><div><label>Productos {{numProducts}}</label>
+            <table class="table"><tbody>
+                <tr v-for="product in products" :class="{zero: product.totalPrice==0}"><th>
+                    <div class="form-group"><br>
+                    <input type="number" class="form-control q" v-model="product.productQuantity" @keyup="recalculate()"><br>
+                    <button class="btn btn-success b" @click="product.productQuantity++; recalculate()">+</button>
+                    <button class="btn btn-danger b" @click="product.productQuantity--; recalculate()" :disabled="product.productQuantity == 0">-</button></div></th>
+                <td>{{product.productName}}</td>
+                    <td v-if="product.totalPrice>0">${{product.singlePrice}}</td>
+                    <td v-if="product.totalPrice>0">${{product.totalPrice}}</td>
+                    <td colspan="2" v-else class="text-center font">$0</td></tr>
+                <tr>
+                    <td colspan="2"/>
+                    <th>Subtotal: </th>
+                    <td>${{subtotal}}</td></tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <th>IVA</th>
+                    <td>${{iva}}</td></tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <th>Total</th>
+                    <td>${{total}}
+</td></tr></tbody></table></div></div></section>
+<footer class="container-fluid text-center">
+    <br><h6>Carlos Emilio Arias Buso</h6>
+    <h6>EVN401</h6></footer>
+<script src="gimnasio.js"></script>   
+</body>
+</html>
